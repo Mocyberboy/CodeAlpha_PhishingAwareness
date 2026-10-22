@@ -9,10 +9,3 @@ An interactive web module on phishing, built for the CodeAlpha Cyber Security in
 - Real-world examples and protection tips
 - 5-question quiz
 
-## How to use
-Open index.html in any web browser.
-# CodeAlpha_PhishingAwareness
-# CodeAlpha_PhishingAwareness
-# CodeAlpha_PhishingAwareness
-# CodeAlpha_PhishingAwareness
-# CodeAlpha_PhishingAwareness
