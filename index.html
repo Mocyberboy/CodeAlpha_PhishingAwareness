@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Phishing Awareness Training</title>
+<style>
+:root{--bg:#eef2f6;--card:#fff;--ink:#14213d;--mute:#4b5a73;--line:#cfd8e3;--red:#c0182f;--redbg:#fde8eb;--green:#17724f;--greenbg:#e3f4ec;--blue:#1d4ed8}
+@media (prefers-color-scheme:dark){:root{--bg:#0f1624;--card:#17213a;--ink:#e8edf6;--mute:#a4b1c8;--line:#2d3b58;--red:#ff8a98;--redbg:#3a1a22;--green:#6fd8a8;--greenbg:#12342a;--blue:#8fb0ff}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:760px;margin:0 auto;padding:28px 18px 64px}
+h1,h2{font-family:Charter,"Iowan Old Style",Georgia,serif;line-height:1.2}
+h1{font-size:clamp(2rem,6vw,3rem);margin:.2em 0 .3em}
+h2{font-size:1.6rem;margin:2.2em 0 .5em}
+p{max-width:68ch}
+.lead{font-size:1.15rem;color:var(--mute)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:18px 20px;margin:14px 0}
+.mail{border-radius:6px;padding:0;overflow:hidden}
+.mail .hd{padding:12px 18px;border-bottom:1px solid var(--line);font-size:.92rem;color:var(--mute)}
+.mail .bd{padding:16px 18px}
+.mail .hd div{margin:2px 0}
+.flag{font:inherit;color:inherit;background:none;border:0;border-bottom:2px dashed var(--red);padding:0;cursor:pointer;text-align:left}
+.flag:hover,.flag:focus-visible,.flag.on{background:var(--redbg);outline:none}
+.btnfake{display:inline-block;background:var(--blue);color:#fff;padding:8px 16px;border-radius:5px;border:0;font:inherit;cursor:pointer}
+#why{min-height:5.2em;border-left:4px solid var(--red);background:var(--redbg);border-radius:0 8px 8px 0;padding:12px 16px;margin-top:12px}
+#found{color:var(--mute);font-size:.95rem;margin:6px 0 0}
+dl{margin:0}dt{font-weight:700;margin-top:12px}dd{margin:2px 0 0;color:var(--mute)}
+ul.check{list-style:none;padding:0}
+ul.check li{padding:8px 0 8px 30px;border-bottom:1px solid var(--line);position:relative}
+ul.check li:before{content:"\2713";position:absolute;left:4px;color:var(--green);font-weight:700}
+.url{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.92rem;word-break:break-all}
+.bad{color:var(--red)}.good{color:var(--green)}
+table{border-collapse:collapse;width:100%}td{padding:8px 6px;border-bottom:1px solid var(--line);vertical-align:top}
+.opt{display:block;width:100%;text-align:left;font:inherit;color:inherit;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:11px 14px;margin:8px 0;cursor:pointer}
+.opt:hover:not(:disabled){border-color:var(--blue)}
+.opt.right{background:var(--greenbg);border-color:var(--green)}
+.opt.wrong{background:var(--redbg);border-color:var(--red)}
+.opt:disabled{cursor:default;color:inherit}
+.next{font:inherit;background:var(--ink);color:var(--bg);border:0;border-radius:6px;padding:9px 18px;cursor:pointer;margin-top:8px}
+button:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.exp{margin:8px 0;color:var(--mute)}
+footer{margin-top:48px;color:var(--mute);font-size:.9rem}
+</style>
+</head>
+<body>
+<main>
+<h1>Don’t take the bait: phishing awareness</h1>
+<p class="lead">Phishing is when an attacker pretends to be someone you trust to steal your passwords, money, or access. This short module shows you how to spot it, with an example to inspect and a quiz at the end.</p>
+
+<h2>Try it: spot the red flags</h2>
+<p>This email is fake. Tap each underlined part to see why it’s suspicious.</p>
+<div class="card mail" aria-label="Example phishing email">
+<div class="hd">
+<div>From: <button class="flag" data-f="sender">Northbank Support &lt;alerts@northbnk-secure.com&gt;</button></div>
+<div>Subject: <button class="flag" data-f="urgent">URGENT: Account will be closed in 24 hours</button></div>
+</div>
+<div class="bd">
+<p><button class="flag" data-f="greet">Dear Customer,</button></p>
+<p>We detected unusual activity on your account. <button class="flag" data-f="urgent2">Verify your identity within 24 hours or your account will be permanently suspended.</button></p>
+<p><button class="btnfake flag" data-f="link" style="border:0">https://www.northbank.com/verify</button></p>
+<p>Thank you,<br>Northbank Security Team</p>
+</div>
+</div>
+<div id="why" aria-live="polite">Tap an underlined part above.</div>
+<p id="found"></p>
+
+<h2>What phishing looks like</h2>
+<div class="card"><dl>
+<dt>Email phishing</dt><dd>Mass messages pretending to be a bank, delivery service, or software company.</dd>
+<dt>Spear phishing</dt><dd>Targeted at one person, using real details about their job or contacts.</dd>
+<dt>Smishing and vishing</dt><dd>The same trick by text message (SMS) or phone call.</dd>
+<dt>Fake websites</dt><dd>Copies of real login pages that send your password to the attacker.</dd>
+</dl></div>
+
+<h2>How attackers manipulate you</h2>
+<p>This is social engineering: attacking the person, not the computer. Most scams pull one of these levers:</p>
+<div class="card"><dl>
+<dt>Urgency</dt><dd>“Act in 24 hours.” Pressure stops you thinking.</dd>
+<dt>Fear</dt><dd>“Your account was hacked.” Panic makes you click.</dd>
+<dt>Authority</dt><dd>A message that looks like it’s from your boss, IT, or the government.</dd>
+<dt>Reward</dt><dd>“You won a prize.” Greed or curiosity lowers your guard.</dd>
+</dl></div>
+
+<h2>Spot a fake website</h2>
+<p>Read the web address from right to left, up to the first single slash. The real domain is the part just before it.</p>
+<div class="card"><table>
+<tr><td class="url good">northbank.com/login</td><td>Real: the domain is northbank.com</td></tr>
+<tr><td class="url bad">northbank.com.secure-login.net</td><td>Fake: the real domain is secure-login.net</td></tr>
+<tr><td class="url bad">northbnk.com</td><td>Fake: a letter is missing</td></tr>
+<tr><td class="url bad">northbank-support.xyz</td><td>Fake: extra words and an odd ending</td></tr>
+</table></div>
+<p>A padlock only means the connection is encrypted. Scam sites can have one too.</p>
+
+<h2>Real cases</h2>
+<div class="card"><dl>
+<dt>Fake invoices, 2013 to 2015</dt><dd>A scammer posed as a hardware supplier and sent invoices that two large tech companies paid, losing over $100 million in total. Nobody checked the payment details by another channel.</dd>
+<dt>Twitter, 2020</dt><dd>Attackers phoned employees pretending to be IT, got them to enter credentials on a fake login page, and took over high-profile accounts. The weak point was people, not software.</dd>
+</dl></div>
+
+<h2>How to protect yourself</h2>
+<ul class="check">
+<li>Pause. Urgent messages deserve more suspicion, not less.</li>
+<li>Check the sender’s real address, not just the display name.</li>
+<li>Preview links before clicking (hover on a computer, long-press on a phone).</li>
+<li>Go to the site yourself by typing the address or using the official app.</li>
+<li>Never share passwords or one-time codes with anyone who contacts you.</li>
+<li>Turn on multi-factor authentication and use a password manager.</li>
+<li>Don’t open unexpected attachments.</li>
+<li>Report suspicious messages to your IT or security team.</li>
+</ul>
+
+<h2>If you already clicked</h2>
+<div class="card"><p>Don’t panic, act quickly: change the password on the real site, turn on multi-factor authentication, tell your IT or security team, and watch your accounts for unusual activity. If you entered the same password anywhere else, change it there too.</p></div>
+
+<h2>Test yourself</h2>
+<div id="quiz" class="card"></div>
+
+<footer>CodeAlpha Cyber Security Internship, Task 2: Phishing Awareness Training.</footer>
+</main>
+<script>
+(function(){
+var info={
+sender:"Look closely at the domain. “northbnk-secure.com” is not Northbank’s real domain: a letter is missing and “secure” was added to look official.",
+urgent:"Urgency is a classic pressure tactic. Real companies rarely threaten to close your account within hours.",
+greet:"A generic greeting like “Dear Customer” suggests a mass email. Your real bank knows your name.",
+urgent2:"Threats of suspension push you to act before you think. This is fear plus a deadline.",
+link:"The text shows northbank.com, but the real link can point somewhere else. Preview the address before clicking; here it would lead to a fake login page."
+};
+var why=document.getElementById("why"),found=document.getElementById("found"),seen={};
+var fl=document.querySelectorAll(".flag");
+fl.forEach(function(b){b.addEventListener("click",function(){
+fl.forEach(function(x){x.classList.remove("on")});b.classList.add("on");
+why.textContent=info[b.dataset.f];seen[b.dataset.f]=1;
+var n=Object.keys(seen).length;
+found.textContent=n>=5?"You found all 5 red flags.":"Red flags found: "+n+" of 5";
+});});
+
+var Q=[
+{q:"An email from your “bank” says your account closes in 24 hours unless you click a link. What’s the best move?",o:["Click quickly before it closes","Reply and ask if it’s real","Open the bank’s app or type its address yourself","Forward it to friends as a warning"],a:2,e:"Never use the link in the message. Go to the real site yourself and check for notices there."},
+{q:"Which web address is the most suspicious?",o:["northbank.com/login","northbank.com.secure-login.net","support.northbank.com","www.northbank.com/help"],a:1,e:"The real domain is the part just before the first single slash: here that is secure-login.net, not northbank.com."},
+{q:"A caller says they’re from IT and asks for the one-time code you just received. What is this?",o:["A normal IT check","Voice phishing (vishing): never share codes","Fine if they know your name","Required by company policy"],a:1,e:"One-time codes are for you only. Real IT staff never need them. Hang up and call IT on the official number."},
+{q:"What’s the safest way to check where a link goes?",o:["Preview the address without clicking","Click it and see where it leads","Trust it if the page shows a padlock","Trust it if a friend sent it"],a:0,e:"A padlock only means encryption, and a friend’s account may be hacked. Preview first."},
+{q:"You clicked a link and typed your password into the page. What do you do first?",o:["Nothing, wait and see","Change the password on the real site and report it","Just delete the email","Restart your computer"],a:1,e:"Change the password right away from the real site, then report it so others can be warned."}
+];
+var box=document.getElementById("quiz"),i=0,score=0;
+function show(){
+if(i>=Q.length){var pct=score+" out of "+Q.length;
+box.innerHTML="<h3>Your score: "+pct+"</h3><p>"+(score>=4?"Strong work. You can spot most phishing attempts.":"Good start. Re-read the red flags and try again.")+"</p>";
+var r=document.createElement("button");r.className="next";r.textContent="Try again";r.onclick=function(){i=0;score=0;show()};box.appendChild(r);return}
+var q=Q[i];box.innerHTML="";
+var h=document.createElement("p");h.innerHTML="<strong>Question "+(i+1)+" of "+Q.length+"</strong><br>"+q.q;box.appendChild(h);
+var ex=document.createElement("p");ex.className="exp";
+q.o.forEach(function(t,k){
+var b=document.createElement("button");b.className="opt";b.textContent=t;
+b.onclick=function(){
+var all=box.querySelectorAll(".opt");all.forEach(function(x,n){x.disabled=true;if(n===q.a)x.classList.add("right")});
+if(k===q.a){score++}else{b.classList.add("wrong")}
+ex.textContent=(k===q.a?"Correct. ":"Not quite. ")+q.e;box.appendChild(ex);
+var n=document.createElement("button");n.className="next";n.textContent=i===Q.length-1?"See score":"Next question";
+n.onclick=function(){i++;show()};box.appendChild(n);n.focus();
+};
+box.appendChild(b);
+});
+}
+show();
+})();
+</script>
+</body>
+</html>
